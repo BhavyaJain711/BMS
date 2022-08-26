@@ -56,7 +56,7 @@ void createUser(){
     printf("Account NUmber: ");
     scanf(" %s",&person.accountNumber);
     printf("Father's Name: ");
-    gets(person.fatherName);
+    printf("%s",&person.fatherName);
     printf("Mothers Name: ");
     scanf(" %s",&person.motherName);
     printf("Address: ");
