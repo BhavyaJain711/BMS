@@ -1,5 +1,5 @@
 #include<stdio.h>
-
+#include <windows.h>
 struct User{
     char firstName[20];
     char lastName[20];
@@ -31,6 +31,45 @@ void deposit();
 void transfer();
 void forexExchange();
 void deleteUser();
+void menu();
+void transactMenu();
+void menu(){
+    int choice;
+     SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE
+                                                             |FOREGROUND_INTENSITY
+                          );
+    printf("\t\t\t\t\tWelcome to PDEU SOT BANK\n\n");
+    printf("\t\t\t\tSelect One of the choices below:\n");
+    printf("1.Create Account\n");
+    printf("2.Update Account\n");
+    printf("3.Transact\n");
+    printf("4.Check Balance\n");
+    printf("5.Forex\n");
+    
+    scanf("%d",&choice);
+
+    switch (choice)
+    {
+    case 1:
+        createUser();
+        break;
+    case 2:
+        // updateUser();
+        break;
+    case 3:
+        // transactMenu();
+        break;
+    case 4:
+        // checkBalance();
+        break;
+    case 5:
+        // forexExchange();
+        break;
+    default:
+        break;
+    }
+    
+}
 
 void displayUser(){
     printf("Name: %s %s\n",person.firstName,person.lastName);
@@ -65,12 +104,13 @@ void createUser(){
     printf("Mobile: ");
     scanf(" %s",&person.mobile);
 
+    printf("User created successfully!!\n");
+    displayUser();
     
 }
 
 
 int main(){
-    createUser();
-    displayUser();
+    menu();
     
 }
