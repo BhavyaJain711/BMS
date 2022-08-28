@@ -38,9 +38,9 @@ void displayUser(){
     printf("Account Number: XXXXXXXXXXXX%c%c%c%c\n",
     person.accountNumber[12],person.accountNumber[13],
     person.accountNumber[14],person.accountNumber[15]);
-
+   
     printf("Father's Name: %s\n",person.fatherName);
-
+    
     printf("Mother's Name: %s\n",person.motherName);
 
     printf("Address: %s\n",person.address);
@@ -56,7 +56,8 @@ void createUser(){
     printf("Account NUmber: ");
     scanf(" %s",&person.accountNumber);
     printf("Father's Name: ");
-    printf("%s",&person.fatherName);
+    gets(&c);
+    scanf("%s",&person.fatherName);
     printf("Mothers Name: ");
     scanf(" %s",&person.motherName);
     printf("Address: ");
