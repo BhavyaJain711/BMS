@@ -1,26 +1,19 @@
 #include<stdio.h>
 #include <windows.h>
-struct User{
-    char firstName[20];
-    char lastName[20];
-    char accountNumber[16];
+
+int count = 0;
+
+typedef struct User{
+    char name[100];
+    int account_number;
+    char password[20];
     char address[100];
     char adhaar[16];
     char mobile[10];
-    char fatherName[20];
-    char motherName[20];
-    
-};
-
-struct User person;
-
-
-struct Money{
-    char username[25];
-    char password[20];
     long int amount;
-    
-};
+} User;
+
+User person;
 
 void createUser();
 void updateUser();
@@ -33,6 +26,7 @@ void forexExchange();
 void deleteUser();
 void menu();
 void transactMenu();
+
 void menu(){
     int choice;
      SetConsoleTextAttribute (GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE
@@ -72,33 +66,18 @@ void menu(){
 }
 
 void displayUser(){
-    printf("Name: %s %s\n",person.firstName,person.lastName);
-
-    printf("Account Number: XXXXXXXXXXXX%c%c%c%c\n",
-    person.accountNumber[12],person.accountNumber[13],
-    person.accountNumber[14],person.accountNumber[15]);
-   
-    printf("Father's Name: %s\n",person.fatherName);
-    
-    printf("Mother's Name: %s\n",person.motherName);
-
+    printf("Name: %s \n",person.name);
+    printf("Account number: %d\n", person.account_number);
     printf("Address: %s\n",person.address);
-
     printf("Mobile Number: %s\n",person.mobile);
-
-    
 }
+
 void createUser(){
     char c;
+    person.account_number += count; 
+    printf("Account Number: %d\n", person.account_number);
     printf("Full Name: ");
-    scanf("%s %s",&person.firstName,&person.lastName);
-    printf("Account NUmber: ");
-    scanf(" %s",&person.accountNumber);
-    printf("Father's Name: ");
-    gets(&c);
-    scanf("%s",&person.fatherName);
-    printf("Mothers Name: ");
-    scanf(" %s",&person.motherName);
+    gets(person.name);
     printf("Address: ");
     scanf(" %[^\n]%*c",&person.address);
     printf("Mobile: ");
@@ -106,7 +85,6 @@ void createUser(){
 
     printf("User created successfully!!\n");
     displayUser();
-    
 }
 
 
