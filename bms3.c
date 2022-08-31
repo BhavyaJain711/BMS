@@ -117,7 +117,7 @@ void createUser()
 
 person_invalid:
     printf("\t-----------------------------------------------------------------------------------------------------------\n");
-    printf("\n\n\t\tEnter 1 to go to the main menu and 0 to exit1:");
+    printf("\n\n\t\tEnter 1 to go to the main menu and 0 to exit:");
     scanf("%d", &main_exit);
     system("cls");
     if (main_exit == 1)
@@ -192,7 +192,7 @@ void displayUser()
     printf("\n\t\tBalance: %s\n", person.balance);
 display:
     printf("\t-----------------------------------------------------------------------------------------------------------\n");
-    printf("\n\n\t\tEnter 1 to go to the main menu and 0 to exit1:");
+    printf("\n\n\t\tEnter 1 to go to the main menu and 0 to exit:");
     scanf("%d", &main_exit);
     system("cls");
     if (main_exit == 1)
@@ -301,7 +301,7 @@ void transactMenu()
     }
 transaction_invalid:
     printf("\t-----------------------------------------------------------------------------------------------------------\n");
-    printf("\n\n\t\tEnter 1 to go to the main menu and 0 to exit1:");
+    printf("\n\n\t\tEnter 1 to go to the main menu and 0 to exit:");
     scanf("%d", &main_exit);
     system("cls");
     if (main_exit == 1)
