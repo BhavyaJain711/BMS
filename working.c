@@ -12,7 +12,7 @@ typedef struct User{
     char balance[8];
 } User;
 
-User person, fetched;
+User person, fetched,fetched2;
 
 
 void createUser();
@@ -26,7 +26,7 @@ void deleteUser();
 void menu();
 void transactMenu();
 void generateAccountNUmber();
-
+void fetchData(char user[]);
 
 
 void storeUser()
@@ -34,15 +34,15 @@ void storeUser()
     FILE *fuser;
     char filepath[23]="users\\";
     strcat(filepath, person.accountNumber);
-    strcat(filepath, ".csv");
+    strcat(filepath, ".txt");
     fuser = fopen(filepath,"a");
-    fprintf(fuser,"%s,",person.accountNumber);
-    fprintf(fuser,"%s,",person.password);
-    fprintf(fuser,"%s,",person.name);
-    fprintf(fuser,"%s",person.mobile);
-    fprintf(fuser,"%s,",person.aadhar);
-    fprintf(fuser,"%s,",person.address);
-    fprintf(fuser,"%d",person.balance);
+    fprintf(fuser,"%s\n",person.accountNumber);
+    fprintf(fuser,"%s\n",person.password);
+    fprintf(fuser,"%s\n",person.name);
+    fprintf(fuser,"%s\n",person.mobile);
+    fprintf(fuser,"%s\n",person.aadhar);
+    fprintf(fuser,"%s\n",person.address);
+    fprintf(fuser,"%s\n",person.balance);
     fprintf(fuser,"\0");
     fclose(fuser);
     printf("User Stored Successfully");
@@ -91,6 +91,7 @@ void displayUser(User person){
 
     printf("Mobile Number: %s\n",person.mobile);
     printf("Balance: %s\n",person.balance);
+     printf("Password: %s\n",person.password);
 
 }
 
@@ -122,7 +123,7 @@ void createUser(){
     
     }
     // person.balance="";
-    // strcpy(person.balance,"1000");
+    strcpy(person.balance,"1000");
     printf("saving now");
     storeUser();
     printf("User created successfully!!\n");
@@ -134,48 +135,23 @@ void updateUser(){
 
 }
 
-// void authUser(char user[], char passwd[]) {
-//     int i=0,accno=1,pass=1;
-//     char filepath[23]="users\\";
-//     strcat(filepath,user);
-//     strcat(filepath,".csv");
-//     FILE *fptr = fopen(filepath, "r");
-//     if(fptr == NULL)
-//         printf("Account does not exist\n");
-//     else {
-//        char arr[1][100];
-//         while(fgets(arr[i++], 100, fptr) != NULL);
 
-//         for(int j=0; j<i; j++) {
-//           //  mobile = 0;
-//             //count = 0;
-//             for(int k=0; arr[j][k] != '\0'; k++) {
-//                 if(arr[j][k] == ',')
-//                     arrayData[i]='\0';
-//                 else {
-//                     arrayData[i]=arr[j][k];
-//                 }
-//                 // printf("%c", arr[j][k]);
-//             }
-//         }   int count=7,z=0;
-//             while(count--){
-//                 for(int i=0;i<100;i++){
-//                     while(arr[i]!='\0'){
-//                         fetched.accountNumber[z++]=arr[i];
-//                         continue;
-//                     }
-
-//                 }
-//             }
-
-//     } fclose(fptr);
-// } 
+void authUser(char user[], char passwd[]){
+    fetchData(user);
+    if(strcmp(fetched.password,passwd)==0){
+        // clrscr();
+        printf("Logging You In....");
+    }
+    else{
+        printf("%s",fetched.password);
+    }
+}
 
 void fetchData(char user[]) {
     char balance[8];
 char filepath[23]="users\\";
     strcat(filepath,user);
-    strcat(filepath,".csv");
+    strcat(filepath,".txt");
     FILE *fptr = fopen(filepath, "r");
     if(fptr == NULL)
         printf("Account does not exist\n");
@@ -187,14 +163,18 @@ char filepath[23]="users\\";
         fgets(fetched.aadhar,20,fptr);
         fgets(fetched.address,20,fptr);
         fgets(fetched.balance,8,fptr);
+
+        fetched.password[ strcspn (fetched.password, "\n")] = '\0';
+        fetched.address[ strcspn (fetched.address, "\n")] = '\0';
+        fetched.mobile[ strcspn (fetched.mobile, "\n")] = '\0';
         
 }
 
     displayUser(fetched);
 }
 int main(){
-    // menu();
+    menu();
 //     printf("%s",person.accountNumber);
     // authUser("1234567891234567","1");
-    fetchData("1234567891234567");
+    // fetchData("1234567891234567");
 }
