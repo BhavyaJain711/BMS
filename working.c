@@ -28,6 +28,23 @@ void menu();
 void transactMenu();
 void generateAccountNUmber();
 bool fetchData(char user[]);
+void reStoreUser(User person){
+    FILE *fuser;
+    char filepath[23]="users\\";
+    strcat(filepath, person.accountNumber);
+    strcat(filepath, ".txt");
+    fuser = fopen(filepath,"w+");
+    fprintf(fuser,"%s\n",person.accountNumber);
+    fprintf(fuser,"%s\n",person.password);
+    fprintf(fuser,"%s\n",person.name);
+    fprintf(fuser,"%s\n",person.mobile);
+    fprintf(fuser,"%s\n",person.aadhar);
+    fprintf(fuser,"%s\n",person.address);
+    fprintf(fuser,"%s\n",person.balance);
+    fprintf(fuser,"\0");
+    fclose(fuser);
+    printf("User Stored Successfully");
+}
 
 
 void storeUser(User person)
@@ -162,7 +179,7 @@ void transactMenu()
             sprintf(fetched.balance,"%ld",bal);
             printf("The amount %ld is deposited successfully!\n");
             printf("The updated balance is %s",fetched.balance);
-            storeUser(fetched);
+            restoreUser(fetched);
             break;
         case 2:
             
@@ -175,7 +192,7 @@ void transactMenu()
                 sprintf(fetched.balance,"%ld",bal);
                 printf("The amount %ld is successfully withdrawn!!\n");
                 printf("The updated balance is %s",fetched.balance);
-                storeUser(fetched);
+                restoreUser(fetched);
             }
             else   
                 printf("Insufficient Balance!!");
