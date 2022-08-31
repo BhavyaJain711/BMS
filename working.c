@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include <windows.h>
 #include<string.h>
+#include <stdbool.h>
 char arrayData[100];
 typedef struct User{
     char name[100];
@@ -26,10 +27,10 @@ void deleteUser();
 void menu();
 void transactMenu();
 void generateAccountNUmber();
-void fetchData(char user[]);
+bool fetchData(char user[]);
 
 
-void storeUser()
+void storeUser(User person)
 { 
     FILE *fuser;
     char filepath[23]="users\\";
@@ -91,7 +92,7 @@ void displayUser(User person){
 
     printf("Mobile Number: %s\n",person.mobile);
     printf("Balance: %s\n",person.balance);
-     printf("Password: %s\n",person.password);
+    printf("Password: %s\n",person.password);
 
 }
 
@@ -115,17 +116,17 @@ void createUser(){
         gets(person.password);
         printf("Enter Password again: ");
         gets(repassword);
-            if(strcmp(repassword,person.password)==0)
-                k++;
+        if(strcmp(repassword,person.password)==0)
+            k++;
     
-            else
-                printf("\nBoth the passwords were different. Enter Again\n");
+        else
+            printf("\nBoth the passwords were different. Enter Again\n");
     
     }
     // person.balance="";
     strcpy(person.balance,"1000");
     printf("saving now");
-    storeUser();
+    storeUser(person);
     printf("User created successfully!!\n");
     displayUser(person);
     
@@ -133,6 +134,60 @@ void createUser(){
 
 void updateUser(){
 
+}
+
+void transactMenu()
+{
+    char accNo[16];
+    char filepath[23] = "users\\";
+    printf("-------------------------------------------------------------------\n");
+    printf("\t\t\tWelcome to PDEU BANK\n");
+    printf("\t\t   ::Enter your Account Number::\n");
+    scanf("%s",&accNo);getchar();
+    printf("-------------------------------------------------------------------\n");
+    if (fetchData(accNo))
+    {
+        printf("1. Deposit Money  \t\t\t\t  2. Withdraw Money\n");
+        printf("-------------------------------------------------------------------\n");
+        int ch1;scanf("%d",&ch1);
+        long amt;
+        switch (ch1)
+        {
+        case 1:
+            printf("Enter the amount to be deposited :- ");
+            scanf("%ld",&amt);
+            long bal = (long) fetched.balance;
+            bal+=amt;
+            strcpy(fetched.balance,"");
+            sprintf(fetched.balance,"%ld",bal);
+            printf("The amount %ld is deposited successfully!\n");
+            printf("The updated balance is %s",fetched.balance);
+            storeUser(fetched);
+            break;
+        case 2:
+            
+            printf("Enter the amount to be withdrawn :-");
+            scanf("%d",&amt);
+            bal = (int)fetched.balance;
+            if(bal>=amt){
+                bal-=amt;
+                strcpy(fetched.balance,"");
+                sprintf(fetched.balance,"%ld",bal);
+                printf("The amount %ld is successfully withdrawn!!\n");
+                printf("The updated balance is %s",fetched.balance);
+                storeUser(fetched);
+            }
+            else   
+                printf("Insufficient Balance!!");
+            break;
+        
+        default:
+            printf("Invalid Choice !!");
+            break;
+        }
+    }
+    else
+        printf("The account does not exist!!");
 }
 
 
@@ -147,14 +202,15 @@ void authUser(char user[], char passwd[]){
     }
 }
 
-void fetchData(char user[]) {
+bool fetchData(char user[]) {
     char balance[8];
-char filepath[23]="users\\";
+    char filepath[23]="users\\";
     strcat(filepath,user);
     strcat(filepath,".txt");
     FILE *fptr = fopen(filepath, "r");
     if(fptr == NULL)
-        printf("Account does not exist\n");
+        //printf("Account does not exist\n");
+        return false;
     else {
         fgets(fetched.accountNumber,20,fptr);
         fgets(fetched.password,20,fptr);
@@ -167,6 +223,7 @@ char filepath[23]="users\\";
         fetched.password[ strcspn (fetched.password, "\n")] = '\0';
         fetched.address[ strcspn (fetched.address, "\n")] = '\0';
         fetched.mobile[ strcspn (fetched.mobile, "\n")] = '\0';
+        return true;
         
 }
 
